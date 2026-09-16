@@ -9,13 +9,14 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter
 
 # Occupied unit cubes. Axes: x right, y up, z away from the viewer.
-# The piece stands on the table on the y=0 face; 3 wide, 5 tall, 2 deep.
+# The piece stands on the table on its y=0 face; 3 wide, 5 tall, 2 deep.
 #
-# The massing is a two-layer block for y=0..2 and a one-layer slab for
-# y=3..4 that sits in the REAR plane, so the top of the composition is
-# stepped back by one cube over the front of the base.
+# It is a one-cube-thick backing slab in the REAR plane (z=1) carrying the red
+# L-tromino, with the purple and teal L-trominoes applied proud of it on the
+# FRONT plane (z=0). Every natural-wood cell you can see head-on is therefore a
+# hole in the front layer showing the recessed slab behind.
 VOXELS: dict[tuple[int, int, int], str] = {
-    # --- front layer, z=0 (only the bottom three courses) ---
+    # --- applied pieces, z=0, standing one cube proud of the slab ---
     # Purple L-tromino
     (1, 2, 0): "P",
     (2, 2, 0): "P",
@@ -24,16 +25,12 @@ VOXELS: dict[tuple[int, int, int], str] = {
     (0, 1, 0): "T",
     (0, 0, 0): "T",
     (1, 0, 0): "T",
-    # Wood singles filling the rest of the front layer
-    (0, 2, 0): "W",
-    (1, 1, 0): "W",
-    (2, 0, 0): "W",
-    # --- rear layer, z=1 (full height, minus the top-right corner) ---
+    # --- backing slab, z=1: full 3x5 minus the top-right corner ---
     # Red L-tromino, the only colour that reads from both sides
     (0, 4, 1): "R",
     (1, 4, 1): "R",
     (0, 3, 1): "R",
-    # Wood completing the rear slab
+    # Natural wood completing the slab
     (1, 3, 1): "W",
     (2, 3, 1): "W",
     (0, 2, 1): "W",

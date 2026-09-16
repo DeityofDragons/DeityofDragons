@@ -13,19 +13,18 @@ Isometric (axonometric) reconstruction of the photographed wooden-block assembly
 Unit cubes on a 3×5×2 grid. Axes are **x** to the right, **y** up, **z** away from the
 viewer; the assembly stands on the table on its `y=0` face.
 
-It is not a flat wall. The bottom three courses are two cubes deep, and the top two
-courses are a single-cube slab that sits in the **rear** plane, so the top of the
-composition steps back over the front of the base.
+It is not a flat wall. It is a one-cube-thick backing slab standing in the **rear**
+plane, with two L-trominoes applied one cube **proud** of it:
 
-Front layer, `z=0` (bottom three courses only):
+Applied pieces, `z=0` — purple and teal only:
 
 ```
-y=2:  W  P  P
-y=1:  T  W  P
-y=0:  T  T  W
+y=2:  .  P  P
+y=1:  T  .  P
+y=0:  T  T  .
 ```
 
-Rear layer, `z=1` (full height, minus the top-right corner):
+Backing slab, `z=1` — a full 3×5 minus the top-right corner:
 
 ```
 y=4:  R  R  .
@@ -37,10 +36,12 @@ y=0:  W  W  W
 
 - **R** red L-tromino · **P** purple L-tromino · **T** teal L-tromino · **W** natural wood
 
-Seen straight on, the nearest cube in each cell gives the front elevation
-`R R . / R W W / W P P / T W P / T T W`; from behind, the rear slab reads as wood with
-the red L mirrored into the top-right corner. `render_axonometric.py` prints all four
-elevations so the model can be checked against the reference photographs.
+Twenty cubes in total. Every natural-wood cell that reads in the front elevation is a
+hole in the applied layer showing the recessed slab behind, so head-on the nearest cube
+per cell gives `R R . / R W W / W P P / T W P / T T W`. From behind, the slab reads as
+wood with the red L mirrored into the top-right corner, which is why red is the only
+colour visible from both sides. `render_axonometric.py` prints all four elevations so
+the model can be checked against the reference photographs.
 
 ## Regenerate
 
