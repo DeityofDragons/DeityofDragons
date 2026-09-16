@@ -8,35 +8,46 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter
 
-# Occupied unit cubes (x right, y up, z depth). Front elevation z=0:
+# Occupied unit cubes. Axes: x right, y up, z away from the viewer.
+# The piece stands on the table on the y=0 face; 3 wide, 5 tall, 2 deep.
 #
-#   y=4: R R .
-#   y=3: R W W
-#   y=2: W P P
-#   y=1: T W P
-#   y=0: T T W
+# The massing is a two-layer block for y=0..2 and a one-layer slab for
+# y=3..4 that sits in the REAR plane, so the top of the composition is
+# stepped back by one cube over the front of the base.
 VOXELS: dict[tuple[int, int, int], str] = {
-    # Red L-tromino
-    (0, 4, 0): "R",
-    (1, 4, 0): "R",
-    (0, 3, 0): "R",
+    # --- front layer, z=0 (only the bottom three courses) ---
     # Purple L-tromino
     (1, 2, 0): "P",
     (2, 2, 0): "P",
     (2, 1, 0): "P",
     # Teal L-tromino
+    (0, 1, 0): "T",
     (0, 0, 0): "T",
     (1, 0, 0): "T",
-    (0, 1, 0): "T",
-    # Natural wood monocubes
-    (2, 0, 0): "W",
-    (1, 1, 0): "W",
+    # Wood singles filling the rest of the front layer
     (0, 2, 0): "W",
-    (1, 3, 0): "W",
-    (2, 3, 0): "W",
+    (1, 1, 0): "W",
+    (2, 0, 0): "W",
+    # --- rear layer, z=1 (full height, minus the top-right corner) ---
+    # Red L-tromino, the only colour that reads from both sides
+    (0, 4, 1): "R",
+    (1, 4, 1): "R",
+    (0, 3, 1): "R",
+    # Wood completing the rear slab
+    (1, 3, 1): "W",
+    (2, 3, 1): "W",
+    (0, 2, 1): "W",
+    (1, 2, 1): "W",
+    (2, 2, 1): "W",
+    (0, 1, 1): "W",
+    (1, 1, 1): "W",
+    (2, 1, 1): "W",
+    (0, 0, 1): "W",
+    (1, 0, 1): "W",
+    (2, 0, 1): "W",
 }
 
-# Face shades: top / left (+z) / right (+x)
+# Face shades: top (+y) / front (-z) / right (+x)
 PALETTE = {
     "R": ("#F04545", "#D32F2F", "#A32020"),
     "P": ("#B57AE8", "#9B59D6", "#7340A8"),
@@ -48,8 +59,9 @@ EDGE = "#1F1A17"
 
 
 def iso_project(x: float, y: float, z: float, scale: float) -> tuple[float, float]:
-    sx = (x - z) * math.cos(math.radians(30)) * scale
-    sy = -y * scale + (x + z) * math.sin(math.radians(30)) * scale
+    """Isometric view from front-right-above, so the -z elevation stays visible."""
+    sx = (x + z) * math.cos(math.radians(30)) * scale
+    sy = -y * scale + (x - z) * math.sin(math.radians(30)) * scale
     return sx, sy
 
 
@@ -69,21 +81,26 @@ def cube_faces(
     return {
         # +y
         "top": [p["010"], p["110"], p["111"], p["011"]],
-        # +z appears on the left of the cube in this projection
-        "left": [p["001"], p["011"], p["111"], p["101"]],
+        # -z, the elevation that faces the camera
+        "front": [p["000"], p["100"], p["110"], p["010"]],
         # +x appears on the right of the cube
-        "right": [p["100"], p["110"], p["111"], p["101"]],
+        "right": [p["100"], p["101"], p["111"], p["110"]],
     }
 
 
 def occluded(x: int, y: int, z: int, face: str, occupied: set[tuple[int, int, int]]) -> bool:
     if face == "top" and (x, y + 1, z) in occupied:
         return True
-    if face == "left" and (x, y, z + 1) in occupied:
+    if face == "front" and (x, y, z - 1) in occupied:
         return True
     if face == "right" and (x + 1, y, z) in occupied:
         return True
     return False
+
+
+def paint_order() -> list[tuple[int, int, int]]:
+    """Back-to-front for a view along (-1, -1, +1)."""
+    return sorted(VOXELS.keys(), key=lambda p: (p[0] + p[1] - p[2], p[1], p[0]))
 
 
 def projected_bounds(scale: float) -> tuple[float, float, float, float]:
@@ -103,7 +120,7 @@ def projected_bounds(scale: float) -> tuple[float, float, float, float]:
 
 def render_png(path: Path, size: int = 2000, scale: float = 150) -> None:
     occupied = set(VOXELS)
-    ordered = sorted(VOXELS.keys(), key=lambda p: (p[0] + p[2], p[1], p[0]))
+    ordered = paint_order()
 
     min_x, min_y, max_x, max_y = projected_bounds(scale)
     ox = size / 2 - (min_x + max_x) / 2
@@ -134,8 +151,8 @@ def render_png(path: Path, size: int = 2000, scale: float = 150) -> None:
     img = Image.alpha_composite(img, shadow_layer)
     draw = ImageDraw.Draw(img)
 
-    face_order = ("left", "right", "top")
-    color_map = {"left": 1, "right": 2, "top": 0}
+    face_order = ("front", "right", "top")
+    color_map = {"front": 1, "right": 2, "top": 0}
 
     for x, y, z in ordered:
         colors = PALETTE[VOXELS[(x, y, z)]]
@@ -156,7 +173,7 @@ def render_png(path: Path, size: int = 2000, scale: float = 150) -> None:
 
 def render_svg(path: Path, scale: float = 110) -> None:
     occupied = set(VOXELS)
-    ordered = sorted(VOXELS.keys(), key=lambda p: (p[0] + p[2], p[1], p[0]))
+    ordered = paint_order()
     min_x, min_y, max_x, max_y = projected_bounds(scale)
     pad = 64
     width = (max_x - min_x) + pad * 2
@@ -175,8 +192,8 @@ def render_svg(path: Path, scale: float = 110) -> None:
         f'<g stroke="{EDGE}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">',
     ]
 
-    face_order = ("left", "right", "top")
-    color_map = {"left": 1, "right": 2, "top": 0}
+    face_order = ("front", "right", "top")
+    color_map = {"front": 1, "right": 2, "top": 0}
 
     for x, y, z in ordered:
         colors = PALETTE[VOXELS[(x, y, z)]]
@@ -194,10 +211,49 @@ def render_svg(path: Path, scale: float = 110) -> None:
     print(f"Wrote {path}")
 
 
+SIZE_X, SIZE_Y, SIZE_Z = 3, 5, 2
+
+
+def elevation(view: str) -> list[str]:
+    """Nearest-cube colour per screen cell, for checking the model against the photos."""
+    rows: list[str] = []
+    for y in range(SIZE_Y - 1, -1, -1):
+        cells: list[str] = []
+        if view == "front":  # looking along +z
+            for x in range(SIZE_X):
+                cells.append(_nearest((x, y, z) for z in range(SIZE_Z)))
+        elif view == "back":  # looking along -z; x reads right to left
+            for x in reversed(range(SIZE_X)):
+                cells.append(_nearest((x, y, z) for z in reversed(range(SIZE_Z))))
+        elif view == "right":  # looking along -x; z=0 (front) on the left
+            for z in range(SIZE_Z):
+                cells.append(_nearest((x, y, z) for x in reversed(range(SIZE_X))))
+        elif view == "left":  # looking along +x; z=1 (back) on the left
+            for z in reversed(range(SIZE_Z)):
+                cells.append(_nearest((x, y, z) for x in range(SIZE_X)))
+        else:
+            raise ValueError(view)
+        rows.append(" ".join(cells))
+    return rows
+
+
+def _nearest(cells) -> str:
+    return next((VOXELS[c] for c in cells if c in VOXELS), ".")
+
+
+def print_elevations() -> None:
+    for view in ("front", "back", "right", "left"):
+        print(f"{view} elevation (y up, 5 courses):")
+        for row in elevation(view):
+            print(f"    {row}")
+        print()
+
+
 def main() -> None:
     root = Path(__file__).resolve().parent
     assets = root / "assets"
     output = root / "output"
+    print_elevations()
     for dest in (assets, output):
         render_png(dest / "blocks_axonometric.png", size=2000, scale=155)
         render_svg(dest / "blocks_axonometric.svg", scale=120)
