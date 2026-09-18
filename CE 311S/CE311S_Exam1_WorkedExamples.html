@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>CE 311S Exam 1 — Worked Examples</title>
+<style>
+  :root { --navy:#12325a; --ink:#1a2332; --box:#f4f7fb; --rule:#c5d0dc; --tip:#fff6e5; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    font: 9.15pt/1.28 "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  @page { size: letter; margin: 0.38in; }
+  h1 { font-size: 14.5pt; color: var(--navy); margin: 0 0 3px; border-bottom: 2.5px solid var(--navy); padding-bottom: 3px; }
+  .meta { font-size: 8.3pt; color: #445; margin-bottom: 8px; }
+  h2 { font-size: 10.6pt; color: #fff; background: var(--navy); padding: 3px 7px; margin: 9px 0 5px; break-after: avoid; }
+  h3 { font-size: 9.6pt; color: var(--navy); margin: 6px 0 2px; break-after: avoid; }
+  p, ul { margin: 0 0 4px; }
+  .box, .tip { border: 1px solid var(--rule); background: var(--box); padding: 5px 8px; margin: 4px 0 6px; break-inside: avoid; }
+  .tip { background: var(--tip); border-color: #e0c48a; }
+  table { border-collapse: collapse; margin: 4px 0 6px; font-size: 8.7pt; break-inside: avoid; }
+  th, td { border: 1px solid #b9c6d4; padding: 2px 6px; }
+  th { background: #e8eef5; }
+  .ans { font-weight: 700; }
+  ol.steps { margin: 2px 0 5px; padding-left: 1.25em; }
+  ol.steps li { margin: 1px 0; }
+  code, .math { font-family: "Cambria Math", "Times New Roman", Times, serif; }
+</style>
+</head>
+<body>
+  <h1>CE 311S Exam 1 — Worked Examples &amp; Attack Plans</h1>
+  <div class="meta">
+    Companion to the 2-page formula cheat sheet. Every problem type from the Spring 2026 review
+    and the example midterm, fully worked. Practice writing these same steps on the real exam.
+  </div>
+
+  <h2>A. Descriptive stats — review Example 1 &amp; sample-exam lakes</h2>
+  <h3>Review: n = 20 ages, Σx = 143, S<sub>xx</sub> = 62.55</h3>
+  <p>Sorted: 4, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 10</p>
+  <ol class="steps">
+    <li>Mean μ̂ = 143/20 = <span class="ans">7.15</span></li>
+    <li>n even → median = average of 10th and 11th = (7+7)/2 = <span class="ans">7</span></li>
+    <li>Lower half = first 10 values. Q1 = median of those = average of 5th and 6th of the lower half = (6+6)/2 = <span class="ans">6</span></li>
+    <li>s² = S<sub>xx</sub>/(n−1) = 62.55/19 = 3.292 → s = <span class="ans">1.81</span> (the review quotes Var = 3.29)</li>
+    <li>Histogram: √20 ≈ 4.5 → use 5 bins. Width = (10−4)/5 = 1.2. Bins [4, 5.2], (5.2, 6.4], (6.4, 7.6], (7.6, 8.8], (8.8, 10] with counts 4, 5, 2, 3, 6.</li>
+  </ol>
+
+  <h3>Sample exam: mercury lakes 70, 85, 95, 80, 92, 97, 90, 100, 93, 95. Σx=897, Σx²=81,197</h3>
+  <ol class="steps">
+    <li>Sorted: 70, 80, 85, 90, 92, 93, 95, 95, 97, 100</li>
+    <li>Mean = 897/10 = <span class="ans">89.7</span></li>
+    <li>10% trimmed mean: 10% of 10 = 1 from each end. Drop 70 and 100. Remaining sum = 897−170 = 727. Mean = 727/8 = <span class="ans">90.875</span></li>
+    <li>Median = average of 5th and 6th = (92+93)/2 = <span class="ans">92.5</span></li>
+    <li>S<sub>xx</sub> = 81197 − 897²/10 = 81197 − 80460.9 = 736.1. s² = 736.1/9 = 81.789. s = <span class="ans">9.044</span></li>
+  </ol>
+  <div class="tip"><b>On the exam:</b> if they give Σx and Σx², use them. Show S<sub>xx</sub> then divide by n−1. For trimmed mean, state how many you dropped.</div>
+
+  <h2>B. Counting — words, rebar, students</h2>
+  <h3>Order matters, no repeats</h3>
+  <p>5-letter words from 26 letters, no repeats: P(26,5) = 26×25×24×23×22 = <span class="ans">7,893,600</span></p>
+  <h3>Order matters, repeats allowed</h3>
+  <p>4-letter words, repeats OK: 26<sup>4</sup> = <span class="ans">456,976</span></p>
+  <h3>Multivariate hypergeometric (sample exam rebar)</h3>
+  <p>15 rebars: 5 of 1″, 5 of ¾″, 5 of ½″. Pull 6. P(two of each):</p>
+  <div class="box math">
+    P = [C(5,2) C(5,2) C(5,2)] / C(15,6) = (10×10×10) / 5005 = 1000/5005 = <span class="ans">0.1998</span>
+  </div>
+  <h3>Review Example 5 — 15 flu students, pick 3</h3>
+  <p>4 seniors, 5 juniors, 6 freshmen. C(15,3)=455.</p>
+  <ul>
+    <li>Exactly 2 freshmen: C(6,2)C(9,1)/455 = 135/455 = <span class="ans">0.2967</span></li>
+    <li>All 3 same category: [C(4,3)+C(5,3)+C(6,3)]/455 = (4+10+20)/455 = 34/455 = <span class="ans">0.0747</span></li>
+    <li>One of each: 4×5×6 / 455 = 120/455 = <span class="ans">0.2637</span></li>
+  </ul>
+  <div class="tip">If the objects come in types and you sample without replacement, the fraction of combination products is almost always the answer. Write C(total, n) in the denominator first so you don’t forget it.</div>
+
+  <h2>C. Bayes tree — review Example 2 &amp; dam upgrade</h2>
+  <h3>Austine homes</h3>
+  <table>
+    <tr><th>Source A<sub>i</sub></th><th>P(A<sub>i</sub>)</th><th>P(B | A<sub>i</sub>)</th><th>Joint P(A<sub>i</sub> ∩ B)</th><th>P(A<sub>i</sub> | B)</th></tr>
+    <tr><td>Solar A1</td><td>0.40</td><td>0.30</td><td>0.12</td><td>0.12/0.455 = 0.2637</td></tr>
+    <tr><td>Grid only A2</td><td>0.35</td><td>0.60</td><td>0.21</td><td>0.21/0.455 = 0.4615</td></tr>
+    <tr><td>Gas A3</td><td>0.25</td><td>0.50</td><td>0.125</td><td>0.125/0.455 = 0.2747</td></tr>
+  </table>
+  <ol class="steps">
+    <li>(a) P(A2 ∩ B) = 0.35×0.60 = <span class="ans">0.21</span></li>
+    <li>(b) P(B) = 0.12+0.21+0.125 = <span class="ans">0.455</span></li>
+    <li>(c) Three posterior probabilities above. They must sum to 1 (check: 0.2637+0.4615+0.2747=0.9999).</li>
+  </ol>
+  <h3>Sample exam: P(upgraded | stable)</h3>
+  <p>P(U)=0.20, P(S|U)=0.90. From the filled table, 450 of 525 dams are stable, so P(S)=450/525=6/7.</p>
+  <div class="box math">P(U|S) = (0.90)(0.20) / (450/525) = 0.18 × 525/450 = 0.21 = <span class="ans">0.21</span></div>
+  <div class="tip">Always say whether 0.21 is a probability (unitless). Box it. If they already gave you a table, use the table’s P(S) rather than making up P(S|not upgraded).</div>
+
+  <h2>D. Independence of two RVs — review Example 3</h2>
+  <p>Marginals of S and T both look like (0.25, 0.5, 0.25). That does <b>not</b> mean independence.</p>
+  <p>Test: P(S=0)P(T=0) = 0.25×0.5 = 0.125, but the joint cell P(S=0, T=0) = 0.25 ≠ 0.125.</p>
+  <p class="ans">Dependent.</p>
+  <p>You only need one failing cell. A faster visual: several joint cells are 0 while both corresponding marginals are positive — impossible for independent RVs.</p>
+
+  <h2>E. Discrete RV + nonlinear h(X) — review Example 4</h2>
+  <p>25% of US bridges poor; sample n=3 at random, large population → <b>binomial</b> X ~ Bin(3, 0.25).</p>
+  <table>
+    <tr><th>x</th><th>C(3,x)</th><th>p(x) = C(3,x)(0.25)<sup>x</sup>(0.75)<sup>3−x</sup></th></tr>
+    <tr><td>0</td><td>1</td><td>0.421875</td></tr>
+    <tr><td>1</td><td>3</td><td>0.421875</td></tr>
+    <tr><td>2</td><td>3</td><td>0.140625</td></tr>
+    <tr><td>3</td><td>1</td><td>0.015625</td></tr>
+  </table>
+  <ol class="steps">
+    <li>E[X]=np=0.75. V(X)=np(1−p)=0.5625. SD=0.75.</li>
+    <li>E[X²] = V+μ² = 0.5625+0.5625 = 1.125</li>
+    <li>E[2X²+3] = 2(1.125)+3 = <span class="ans">5.25</span></li>
+    <li>E[X⁴]= 0⁴(0.421875)+1⁴(0.421875)+2⁴(0.140625)+3⁴(0.015625)=0.421875+2.25+1.265625=<span class="ans">3.9375</span></li>
+    <li>V(X²)=E[X⁴]−(E[X²])²=3.9375−1.265625=2.671875</li>
+    <li>V(2X²+3)=4 V(X²)= <span class="ans">10.6875</span></li>
+  </ol>
+  <div class="tip">You cannot use V(a+bX)=b²V(X) directly on 2X²+3 because it is not linear in X. Rewrite as a+bY with Y=X², then V=b²V(Y).</div>
+
+  <h2>F. E and SD of a function of a listed pmf (sample exam high-rises)</h2>
+  <p>HB takes 3, 5, 7 with probabilities 0.35, 0.45, 0.20. Cost C = h(HB) (whatever quadratic/linear they print).</p>
+  <ol class="steps">
+    <li>Make a three-row table: hb, p, c=h(hb), c².</li>
+    <li>E[C] = Σ c p. Sample answer was <span class="ans">$806.17 million</span>.</li>
+    <li>E[C²] = Σ c² p, then SD = √(E[C²]−(E[C])²). Sample answer <span class="ans">$167.6 million</span>.</li>
+    <li>Because h is almost certainly not linear, do <b>not</b> compute h(E[HB]). E[HB]=4.7, and h(4.7) is the wrong expected cost.</li>
+  </ol>
+
+  <h2>G. Contingency table algebra (sample exam dams)</h2>
+  <p>Urban given: Old-S 100, Old-U 30, New-S 200, New-U 20. Urban total = 350.</p>
+  <ul>
+    <li>1/3 of all dams rural ⇒ urban is 2/3 ⇒ Total = 350×3/2 = 525. Rural total = 175.</li>
+    <li>50 older dams are unstable. Urban old-unstable = 30 ⇒ rural old-unstable = 20.</li>
+    <li>1/6 of older rural dams are unstable ⇒ rural old total = 20×6 = 120 ⇒ rural old-stable = 100.</li>
+    <li>1/3 of all stable dams are rural. Urban stable = 300 ⇒ all stable = 450 ⇒ rural stable = 150 ⇒ rural new-stable = 50.</li>
+    <li>Rural new total = 175−120=55 ⇒ rural new-unstable = 5.</li>
+  </ul>
+  <p>Rural row: <span class="ans">100, 20, 50, 5</span>. P(unstable | rural) = 25/175 = <span class="ans">0.1429</span>.</p>
+  <p>Exactly 5 of 8 randomly selected older dams stable:</p>
+  <ul>
+    <li>Older: 200 stable + 50 unstable = 250.</li>
+    <li>Exact hypergeometric: C(200,5)C(50,3)/C(250,8) ≈ <span class="ans">0.1471</span></li>
+    <li>Binomial approx p=0.8: C(8,5)(0.8)⁵(0.2)³ = 56×0.32768×0.008 = <span class="ans">0.1468</span></li>
+  </ul>
+  <div class="tip">On Kockelman’s exam, either answer is typically accepted if you name the distribution. The binomial is faster on a calculator. Mention “n ≪ N so p≈constant” if you approximate.</div>
+
+  <h2>H. Estimating n and p (sample exam EPA lakes)</h2>
+  <p>Treat yearly mercury-lake count as X ~ Bin(n,p). Method of moments:</p>
+  <div class="box math">
+    x̄ = 89.7 ≈ np<br />
+    s² = 81.789 ≈ np(1−p)<br />
+    1−p ≈ s²/x̄ = 81.789/89.7 = 0.91181 → p̂ = 0.08819<br />
+    n̂ = 89.7 / 0.08819 ≈ 1017
+  </div>
+  <p><b>Extra credit — why binomial may be wrong:</b> contamination is spatially clustered (trials not independent); the set of U.S. lakes is finite (should be hypergeometric); p can trend over 10 years; EPA may not use simple random sampling; n may not actually be constant.</p>
+
+  <h2>I. What to write in the first 60 seconds</h2>
+  <ol class="steps">
+    <li>cdf = cumulative distribution function</li>
+    <li>Bayes: P(A<sub>i</sub>|B) = P(B|A<sub>i</sub>)P(A<sub>i</sub>) / Σ<sub>j</sub> P(B|A<sub>j</sub>)P(A<sub>j</sub>)</li>
+    <li>E[h(X)]=h(E[X]) iff h(x)=a+bx (linear)</li>
+    <li>Dump the formula block from the cheat sheet onto scrap paper in case you cannot bring this sheet in.</li>
+  </ol>
+  <div class="tip">
+    Kockelman’s cover note: show all calculations, state assumptions, include units, and box numerical answers.
+    A right number with no box / no units / no distribution named will leak points.
+  </div>
+
+  <h2>J. Night-before 10-question drill (cover the answers)</h2>
+  <table>
+    <tr><th>#</th><th>Prompt</th><th>Answer</th></tr>
+    <tr><td>1</td><td>What does cdf stand for?</td><td>Cumulative distribution function, F(x)=P(X≤x)</td></tr>
+    <tr><td>2</td><td>Write Bayes’ complete theorem.</td><td>P(A<sub>i</sub>|B)=P(B|A<sub>i</sub>)P(A<sub>i</sub>)/Σ P(B|A<sub>j</sub>)P(A<sub>j</sub>)</td></tr>
+    <tr><td>3</td><td>When is E[h(X)] = h(E[X])?</td><td>Only if h is linear: h(x)=a+bx</td></tr>
+    <tr><td>4</td><td>5-letter words, no repeated letters, 26-letter alphabet?</td><td>P(26,5)=26×25×24×23×22=7,893,600</td></tr>
+    <tr><td>5</td><td>How do you prove two RVs are independent?</td><td>p(s,t)=p(s)p(t) for <b>every</b> cell. One miss → dependent</td></tr>
+    <tr><td>6</td><td>Pick 6 rebars from 5+5+5 types, want 2 of each?</td><td>C(5,2)³ / C(15,6) = 1000/5005 = 0.1998</td></tr>
+    <tr><td>7</td><td>X~Bin(n,p), data give x̄ and s². Find p and n.</td><td>p̂=1−s²/x̄ &nbsp; n̂=x̄/p̂</td></tr>
+    <tr><td>8</td><td>Finite population, without replacement?</td><td>Hypergeometric (or multivariate hypergeometric)</td></tr>
+    <tr><td>9</td><td>V(a+bX) and SD(a+bX)?</td><td>b²V(X) and |b|σ. Does <b>not</b> apply to 2X²+3</td></tr>
+    <tr><td>10</td><td>Kockelman presentation rules?</td><td>Show work, state assumptions, UNITS, BOX the number</td></tr>
+  </table>
+  <p class="tiny" style="font-size:9pt;color:#445;">Print the 2-page formula sheet double-sided. Use this packet to drill, then put both PDFs in your CE 311S course folder.</p>
+</body>
+</html>
