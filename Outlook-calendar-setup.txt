@@ -1,0 +1,132 @@
+UT Fall 2026 calendar
+=====================
+
+File to import: Fall-2026-Outlook-Calendar.ics
+Time zone: Central Time (America/Chicago)
+
+The colored square in every title is the class. The word after it is the activity
+(Lecture, Exam, Quiz, HW due, Lab, Studio, Office hours, Reading due, Project due).
+That is readable the moment you import it.
+
+Suggested Outlook category colors, set once:
+  ARE 102    blue
+  ARE 217    purple
+  CE 311K    orange
+  CE 311S    green
+  EM 306     red
+  ME 310T    yellow
+  UT Austin  dark gray
+
+Outlook shows one color bar per event, so the bar is the class. Search the calendar
+for "Exam" or "HW due" when you only want that kind of item.
+
+How to put it in Outlook
+------------------------
+
+Outlook on the web:
+  1. Open calendar.outlook.com.
+  2. Add calendar, then Create blank calendar. Name it Fall 2026 Classes.
+  3. Add calendar, then Upload from file. Choose Fall-2026-Outlook-Calendar.ics
+     and put it on the Fall 2026 Classes calendar.
+
+Outlook desktop:
+  1. File, Open & Export, Import/Export.
+  2. Import an iCalendar (.ics) or vCalendar file.
+  3. Choose Fall-2026-Outlook-Calendar.ics.
+  4. If it asks, import into a new calendar named Fall 2026 Classes.
+
+On Sunday, August 23, open the all-day event "Start here". It repeats these steps.
+
+Delete the sections that are not yours
+---------------------------------------
+
+These repeat, so open any one event and choose Delete series.
+
+  CE 311K lab, ECJ 2.210
+    17605  Friday 12:00–2:00
+    17610  Friday 2:00–4:00
+    17615  Wednesday 3:00–5:00
+    17620  Tuesday 4:00–6:00
+
+  CE 311S lab, ECJ 2.218, Mondays
+    17645  1:00–2:00
+    17655  2:00–3:00
+    17660  3:00–4:00
+    17650  4:00–5:00
+  The lecture syllabus and the lab syllabus list these unique numbers in a
+  different order. Match the number on your registration, not the guess.
+  Keep the all-day line each Monday. That line is the lab topic or the review.
+
+  EM 306 discussion (a quiz is given every meeting)
+    16220  Monday 4:00–6:00     CPE 2.220   Juliette Noyer
+    16225  Tuesday 4:00–6:00    ECJ 1.314   Junyoung Kim
+    16230  Monday 6:00–8:00     ECJ 1.314   Rowan Williams
+    16235  Tuesday 6:00–8:00    ECJ 1.314   Junyoung Kim
+
+  EM 306 evening exams are listed twice, 4:00–6:00 and 6:00–8:00.
+  Delete the seating that is not yours after Canvas posts the rooms.
+  There are three dates: Sep 29, Oct 27, and Dec 1.
+
+  ARE 217 studio, ECJ 3.106
+    17445  Monday/Wednesday 8:00–10:00    Stephen Smith
+    17450  Monday/Wednesday 10:00–12:00   Reese Smiley
+    17455  Monday/Wednesday 3:00–5:00     Sofia Leal Cavazos
+    17460  Monday/Wednesday 5:00–7:00     Sofia Leal Cavazos
+  The PDF header says Fall 2027. The file name says Fall 2026.
+  Delete all four series if you are not in ARE 217 this fall.
+  The syllabus has no dated homework or exams. Tutor hours were "to be posted."
+
+Office hours and optional ME 310T recitations are marked free. They show on the
+day and do not mark you busy, and they do not set an alarm.
+
+What is on the calendar
+-----------------------
+
+  ARE 102     Wednesday 2:00–3:00 pm, CPE 2.204, with the topic and reading.
+              Exams Oct 14 and Nov 18, during class, about 20 minutes, then lecture.
+              Office hours Tuesday and Thursday 11:00–12:00, ECJ 5.430.
+              Those office hours overlap ME 310T lecture.
+  ME 310T     Tuesday/Thursday 11:00 am–12:30 pm, CMA 2.306, topic by day.
+              Quizzes on the Tuesdays the syllabus names.
+              Homework due Friday at 9:00 pm. Optional corrected copy Sunday midnight.
+              HW 5 has no due date.
+              Exams Oct 8 and Nov 5 in class. Final Thu Dec 10, 1:00–3:00 pm.
+  CE 311K     Tuesday/Thursday 8:00–9:30 am, RLP 0.102.
+              The syllabus has no day-by-day topics and no homework dates.
+              Midterm 1: Tue Oct 13, 8:00–9:15 am, RLP 0.102.
+              Midterm 2: Thu Nov 19, placed in the regular 8:00 am class because
+              the syllabus names the day and not the clock time.
+              Final: Fri Dec 11, 10:30 am–12:30 pm. Room not in the syllabus.
+  CE 311S     Monday/Wednesday/Friday 11:00–11:50 am, CPE 2.218.
+              Lessons are a window between exams, not a date for each lesson.
+              Exams: Fri Sep 18, Fri Oct 9, Fri Nov 6, Mon Nov 30, all in class.
+              Final exam time is not in the syllabus. A reminder is on Sep 21,
+              when the registrar posts finals, and again on Dec 8.
+              Homework is "almost weekly" before 10:00 pm. No dates were printed.
+  EM 306      Monday/Wednesday/Friday 1:00–2:00 pm, PAI 3.02. Topic by week.
+              Exams: Sep 29, Oct 27, Dec 1, evenings, 4–6 and 6–8.
+              Final: Fri Dec 11, 1:00–3:00 pm.
+              Homework is typically assigned Wednesday and due the next Friday.
+              Those dates are not listed, so they were not invented.
+  UT          Labor Day Sep 7. Drop deadline Sep 9. Q-drop deadline Nov 18.
+              Fall break Nov 23–28. Last class day Dec 7. Study days Dec 8–9.
+
+Confirm these before you trust them
+------------------------------------
+
+  ARE 102 Project 1 is October 2 in the Important Dates line and October 28
+  on the schedule table. Both are on the calendar.
+
+  ME 310T homework is due before 9:00 pm Friday. The schedule table shows each
+  homework on the Thursday class row. A later sentence says Tuesday quizzes
+  follow a Thursday submission. Friday 9:00 pm is what the written rule says.
+  Move an event if Canvas shows a different deadline.
+
+  CE 311K Midterm 2 has no clock time in the syllabus.
+
+  ES 333T was pasted without a meeting time or a course schedule. Nothing from
+  that class is on this calendar. Send the schedule page and it can be added.
+
+Classes are skipped on Labor Day and November 23–28. Finals already on the
+calendar do not overlap each other: ME 310T is Thursday afternoon, CE 311K is
+Friday late morning, EM 306 is Friday afternoon. CE 311S is still unknown.
